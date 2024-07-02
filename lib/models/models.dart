@@ -2,16 +2,19 @@
 class UserData {
   final String name;
   final String phoneNumber;
+  final String email;
 
   UserData({
     required this.name,
     required this.phoneNumber,
+    required this.email,
   });
 
   factory UserData.fromJson(Map<String, dynamic> json) {
     return UserData(
       name: json['userName'],
       phoneNumber: json['phoneNumber']??'',
+      email: json['email']??'',
     );
   }
 }
@@ -91,6 +94,7 @@ class Product {
   final String category;
   final int categoryId;
   final String imageUrl;
+  final int quantity;
 
   Product({
     required this.id,
@@ -100,6 +104,7 @@ class Product {
     required this.category,
     required this.categoryId,
     required this.imageUrl,
+    required this.quantity,
   });
 
   factory Product.fromJson(Map<String, dynamic> json) {
@@ -111,17 +116,20 @@ class Product {
       category: json['category']??'',
       categoryId: json['categoryId'],
       imageUrl: json['imageUrl'],
+      quantity: json['quantity'],
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'id': id,
       'name': name,
       'price': price,
       'description': description,
-      'category': category,
       'imageUrl': imageUrl,
+      'isActive': true,
+      'createdDate': '2024-07-02T16:15:52.175Z',
+      'categoryId': categoryId,
+      'quantity': quantity,
     };
   }
 }
@@ -205,7 +213,7 @@ class CartItem {
   int quantity;
   String productName;
   String productImageUrl;
-  double productSalary;
+  double price;
 
   CartItem({
     required this.cartId,
@@ -214,7 +222,7 @@ class CartItem {
     required this.userId,
     required this.productName,
     required this.productImageUrl,
-    required this.productSalary,
+    required this.price,
   });
 
   factory CartItem.fromJson(Map<String, dynamic> json) => CartItem(
@@ -224,6 +232,13 @@ class CartItem {
     quantity: json['quantity'],
     productName: json['productName'],
     productImageUrl: json['productImageUrl'],
-    productSalary: json['productSalary'],
+    price: json['price'],
   );
+  Map<String, dynamic> toJson() {
+    return {
+      'quantity': quantity,
+      'productId': productId,
+      'userId': userId,
+    };
+  }
 }

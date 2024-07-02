@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:foody_app2/screens/login_screen.dart';
 
 import '../consts.dart';
 
@@ -8,20 +9,18 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       body: Center(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Spacer(flex: 1,),
+            const Spacer(
+              flex: 1,
+            ),
             const CircleAvatar(
-
               radius: 50,
               backgroundImage: AssetImage('assets/images/personal_image.jpg'),
             ),
             const SizedBox(height: 20),
-
-
             const SizedBox(height: 30),
             Card(
               elevation: 5,
@@ -43,7 +42,7 @@ class ProfileScreen extends StatelessWidget {
               child: ListTile(
                 leading: const Icon(Icons.email, color: kPrimaryColor),
                 title: const Text('Email'),
-                subtitle: Text("example@gmail.com"),
+                subtitle: Text(userData.email),
               ),
             ),
             const SizedBox(height: 15),
@@ -58,7 +57,20 @@ class ProfileScreen extends StatelessWidget {
                 subtitle: Text(userData.phoneNumber),
               ),
             ),
-            const Spacer(flex: 1,)
+            const Spacer(
+              flex: 1,
+            ),
+            ElevatedButton(
+              style: ButtonStyle(backgroundColor: WidgetStateProperty.all(Colors.red)),
+                onPressed: () {
+                  Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(builder: (context) => LoginScreen()),
+                      ModalRoute.withName('/'));
+                },
+                child: const Text(
+                  'Log out',
+                  style: TextStyle(color: Colors.white),
+                ))
           ],
         ),
       ),

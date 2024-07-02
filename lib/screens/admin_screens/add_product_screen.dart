@@ -10,6 +10,7 @@ import '../../consts.dart';
 
 import '../../models/models.dart';
 import '../../services.dart';
+import '../login_screen.dart';
 
 
 class AddProductScreen extends StatefulWidget {
@@ -22,7 +23,8 @@ class AddProductScreen extends StatefulWidget {
 class _AddProductScreenState extends State<AddProductScreen> {
   final _nameController = TextEditingController();
   final _priceController = TextEditingController();
-  final _descriptionController = TextEditingController();
+  final _quantityController = TextEditingController();
+  final _imageController = TextEditingController();
  // File? _image;
   Category? _selectedCategory;
 
@@ -41,10 +43,11 @@ class _AddProductScreenState extends State<AddProductScreen> {
 
   void _submitData() async {
     final name = _nameController.text;
-    final int price = int.parse(_priceController.text);
-    final description = _descriptionController.text;
+    final double price = double.parse(_priceController.text);
+    final image = _imageController.text;
+    final quantity = int.parse(_quantityController.text);
 
-    if (name.isEmpty || price==0 || description.isEmpty ||  _selectedCategory == null) {
+    if (name.isEmpty || price==0 || image.isEmpty ||  _selectedCategory == null) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Please fill all the fields and select a category.')),
       );
@@ -55,13 +58,13 @@ class _AddProductScreenState extends State<AddProductScreen> {
     //   id: 1, // This will be set by the server
     //   name: name,
     //   price: double.parse(price),
-    //   description: description,
+    //   image: image,
     //   category: _selectedCategory!.name,
     //   imageUrl: _image!.path,
     //   categoryId:_selectedCategory!.id , // Handle image uploading separately if needed
     // );
 
-    final response = await _apiService.createProduct(name: name, price: price, imageUrl: description, categoryId: _selectedCategory!.id);
+    final response = await _apiService.createProduct(body: Product(id: 27, name: name, price: price, description: 'this is $name', category: _selectedCategory!.name, categoryId: _selectedCategory!.id, imageUrl: image, quantity: quantity));
 
     if (response) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -165,9 +168,25 @@ class _AddProductScreenState extends State<AddProductScreen> {
               ),
               const SizedBox(height: 10),
               TextField(
-                controller: _descriptionController,
+                controller: _quantityController,
                 decoration: InputDecoration(
-                  labelText: 'Image ',
+                  labelText: 'quantity',
+                  labelStyle: TextStyle(color: kPrimaryColor),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15),
+                    borderSide: BorderSide(color: kPrimaryColor),
+                  ),
+                ),
+                keyboardType: TextInputType.number,
+              ),
+              const SizedBox(height: 10),
+              TextField(
+                controller: _imageController,
+                decoration: InputDecoration(
+                  labelText: 'Image Url',
                   labelStyle: TextStyle(color: kPrimaryColor),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(15),
@@ -214,6 +233,18 @@ class _AddProductScreenState extends State<AddProductScreen> {
                   style: TextStyle(fontSize: 16),
                 ),
               ),
+              SizedBox(height: 10.0,),
+              ElevatedButton(
+                  style: ButtonStyle(backgroundColor: WidgetStateProperty.all(Colors.red)),
+                  onPressed: () {
+                    Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(builder: (context) => LoginScreen()),
+                        ModalRoute.withName('/'));
+                  },
+                  child: const Text(
+                    'Log out',
+                    style: TextStyle(color: Colors.white),
+                  ))
             ],
           ),
         ),

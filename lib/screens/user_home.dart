@@ -17,7 +17,7 @@ class UserHome extends StatefulWidget {
 
 class _UserHomeState extends State<UserHome> {
   int currentTab = 0;
-  List screens =  [
+  List screens = [
     const HomeScreen(),
 
     const CartScreen(),
@@ -36,9 +36,20 @@ class _UserHomeState extends State<UserHome> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             GestureDetector(
-              onTap: () => setState(() {
-                currentTab = 0;
-              }),
+              onTap: () async {
+                products = await ApiService().getProducts();
+                products.forEach((element) {
+                  if (element.categoryId == 2) {
+                    deserts.add(element);
+                  }
+                  if (element.categoryId == 3) {
+                    meals.add(element);
+                  }
+                });
+                setState(() {
+                  currentTab = 0;
+                });
+              },
               child: Column(
                 children: [
                   Icon(
@@ -57,16 +68,18 @@ class _UserHomeState extends State<UserHome> {
             ),
 
             GestureDetector(
-              onTap: () async{
-                cartItem=[];
+              onTap: () async {
+                cartItem = [];
                 cartItem = await ApiService().getCartItem(int.parse(userId));
                 setState(() {
-                currentTab = 1;
-              });},
+                  currentTab = 1;
+                });
+              },
               child: Column(
                 children: [
                   Icon(
-                    currentTab == 1 ? Iconsax.shopping_cart : Iconsax.shopping_cart5,
+                    currentTab == 1 ? Iconsax.shopping_cart : Iconsax
+                        .shopping_cart5,
                     color: currentTab == 1 ? kprimaryColor : Colors.grey,
                   ),
                   Text(
@@ -80,16 +93,17 @@ class _UserHomeState extends State<UserHome> {
               ),
             ),
             GestureDetector(
-              onTap: () async{
+              onTap: () async {
                 userData = await ApiService().getUser(userId);
-                setState(()  {
+                setState(() {
                   currentTab = 2;
                 });
               },
               child: Column(
                 children: [
                   Icon(
-                    currentTab == 2 ? Iconsax.profile_tick : Iconsax.profile_tick4,
+                    currentTab == 2 ? Iconsax.profile_tick : Iconsax
+                        .profile_tick4,
                     color: currentTab == 2 ? kprimaryColor : Colors.grey,
                   ),
                   Text(

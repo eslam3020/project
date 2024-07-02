@@ -1,5 +1,6 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:foody_app2/screens/admin_screens/admin_home.dart';
 import 'package:foody_app2/screens/signup_screen.dart';
 import 'package:foody_app2/screens/user_home.dart';
 import 'package:jwt_decode/jwt_decode.dart';
@@ -82,6 +83,11 @@ class _TextFieldsState extends State<TextFields> {
 
   Future<void> _login() async {
     if (_formKey.currentState!.validate()) {
+      if(emailTextController.text == 'admin@example.com'&&passwordTextController.text == 'Admin@2024') {
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (context) => const AdminHome()),
+            ModalRoute.withName('/'));
+      }
       final request = LoginRequest(
         email: emailTextController.text,
         password: passwordTextController.text,

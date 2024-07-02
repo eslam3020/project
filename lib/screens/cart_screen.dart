@@ -8,7 +8,7 @@ import '../models/food_model.dart';
 double calculateTotalPrice() {
   double totalPrice = 0.0;
   for(int i=0;i<cartItem.length;i++){
-    totalPrice += cartItem[i].productSalary * cartItem[i].quantity;
+    totalPrice += cartItem[i].price * cartItem[i].quantity;
   }
   return totalPrice;
 }
@@ -68,7 +68,7 @@ class _CartScreenState extends State<CartScreen> {
                 height: 1,
               );
             },
-            itemCount: 1,
+            itemCount: cartItem.length,
           ),
         ),
         Container(
@@ -140,7 +140,7 @@ class _CartScreenState extends State<CartScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'model',
+                    model.productName,
                     style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
@@ -188,7 +188,7 @@ class _CartScreenState extends State<CartScreen> {
                       Column(
                         children: [
                           Text(
-                            '\$${model.productSalary.toStringAsFixed(2)}',
+                            '\$${model.price.toStringAsFixed(2)}',
                             style: const TextStyle(fontSize: 15, color: kPrimaryColor),
                           ),
                           // Add other text widgets for old price and discount if needed

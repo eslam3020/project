@@ -83,24 +83,12 @@ class ApiService {
       _getRequest('Products/$id', Product.fromJson);
 
   Future<bool> createProduct({
-    required String name,
-    required int price,
-    required String imageUrl,
-    required int categoryId,
+    required Product body,
 }) async {
     final response = await http.post(
       Uri.parse('$baseUrl/Products'),
-      // headers: {'Content-Type': 'application/json'},
-      body: {
-        "name": name,
-        "description": "this is $name",
-        "price": price,
-        "quantity": 20,
-        "imageUrl": imageUrl,
-        "isActive": true,
-        "createdDate": "2024-06-30T21:43:53.875Z",
-        "categoryId": categoryId
-      },
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode(body),
     );
 
     if (response.statusCode == 200) {
@@ -177,9 +165,9 @@ class ApiService {
       _getListRequest('Cart', CartItem.fromJson);
 
   Future<List<CartItem>> getCartItem(int id) =>
-      _getRequest('Cart/$id', CartItem.fromJson);
+      _getListRequest('Cart/$id', CartItem.fromJson);
 
-  Future<CartItem> addCartItem(CartItem cartItem) =>
+  Future<bool> addCartItem(CartItem cartItem) =>
       _postRequest('Cart', cartItem, CartItem.fromJson);
 
   Future<void> updateCartItem(int id, CartItem cartItem) =>
