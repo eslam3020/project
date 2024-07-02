@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:foody_app2/consts.dart';
 import 'package:foody_app2/models/models.dart';
 import 'package:foody_app2/screens/payment_screen.dart';
+import 'package:foody_app2/services.dart';
 
 import '../models/food_model.dart';
 
@@ -196,7 +197,13 @@ class _CartScreenState extends State<CartScreen> {
                       ),
                       const Spacer(),
                       IconButton(
-                        onPressed: () {},
+
+                        onPressed: () async{
+                          await ApiService().deleteCartItem(model.cartId);
+                          setState(() async{
+                            cartItem = await ApiService().getCartItem(int.parse(userId));
+                          });
+                        },
                         icon: const Icon(Icons.shopping_cart, color: kPrimaryColor),
                       ),
                     ],
