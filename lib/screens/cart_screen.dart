@@ -5,9 +5,11 @@ import 'package:foody_app2/screens/payment_screen.dart';
 
 import '../models/food_model.dart';
 
-double calculateTotalPrice(CartItem cartItem) {
+double calculateTotalPrice() {
   double totalPrice = 0.0;
-    totalPrice += cartItem.productSalary * cartItem.quantity;
+  for(int i=0;i<cartItem.length;i++){
+    totalPrice += cartItem[i].productSalary * cartItem[i].quantity;
+  }
   return totalPrice;
 }
 
@@ -24,12 +26,12 @@ class _CartScreenState extends State<CartScreen> {
   @override
   void initState() {
     super.initState();
-    totalPrice = calculateTotalPrice(cartItem);
+    totalPrice = calculateTotalPrice();
   }
 
   void updateTotalPrice() {
     setState(() {
-      totalPrice = calculateTotalPrice(cartItem);
+      totalPrice = calculateTotalPrice();
     });
   }
 
@@ -57,7 +59,7 @@ class _CartScreenState extends State<CartScreen> {
           child: ListView.separated(
             physics: const BouncingScrollPhysics(),
             itemBuilder: (context, index) {
-              return buildCartList(cartItem, context);
+              return buildCartList(cartItem[index], context);
             },
             separatorBuilder: (context, index) {
               return Container(

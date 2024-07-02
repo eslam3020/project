@@ -11,6 +11,6 @@ String userId = '';
 late UserData userData;
 List<Product> deserts=[];
 List<Product> meals=[];
-late CartItem cartItem;
+late List<CartItem> cartItem;
 late List<Product> products;
 late Future<List<Category>> categories;

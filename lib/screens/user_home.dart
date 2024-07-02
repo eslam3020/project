@@ -58,7 +58,7 @@ class _UserHomeState extends State<UserHome> {
 
             GestureDetector(
               onTap: () async{
-                // cartItem=[];
+                cartItem=[];
                 cartItem = await ApiService().getCartItem(int.parse(userId));
                 setState(() {
                 currentTab = 1;
@@ -81,7 +81,6 @@ class _UserHomeState extends State<UserHome> {
             ),
             GestureDetector(
               onTap: () async{
-                print(userId);
                 userData = await ApiService().getUser(userId);
                 setState(()  {
                   currentTab = 2;
