@@ -40,12 +40,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
       );
 
       try {
-        AuthResponse response = await apiService.registerUser(registerRequest);
-        String token = response.token;
-        Map<String, dynamic> decodedToken = Jwt.parseJwt(token);
-        userId = decodedToken["id"];
+        AuthResponseRegister response = await apiService.registerUser(registerRequest);
+        // String token = response.token;
+        // Map<String, dynamic> decodedToken = Jwt.parseJwt(token);
+        // userId = decodedToken["id"];
         // Navigate to the next screen or show a success message
-        Navigator.push(context, MaterialPageRoute(builder: (context) => const UserHome()));
+        Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginScreen()));
       } catch (e) {
         // Show error message
         print('Signup failed: $e');

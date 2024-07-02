@@ -14,3 +14,4 @@ List<Product> meals=[];
 late List<CartItem> cartItem;
 late List<Product> products;
 late Future<List<Category>> categories;
+bool checkAddToCart = false;

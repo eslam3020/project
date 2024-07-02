@@ -76,12 +76,12 @@ class _ProductItemState extends State<ProductItem> {
                     productName: widget.product.name,
                     productImageUrl: widget.product.imageUrl,
                     price: widget.product.price));
-                // setState(() {
-                //   if(result =="Item added to cart successfully")color = true;
-                // });
+                if(checkAddToCart)color = true;
+                setState(() {
+                });
               },
               style: IconButton.styleFrom(
-                backgroundColor: color?Colors.red:Colors.white,
+                backgroundColor: color?Colors.green:Colors.white,
                 fixedSize: const Size(30, 30),
               ),
               iconSize: 20,

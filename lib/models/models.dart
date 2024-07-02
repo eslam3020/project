@@ -65,7 +65,24 @@ class AuthResponse {
       flag: json['flag'] ?? false,
       message: json['message'] ?? '',
       statusCode: json['statusCode'] ?? 0,
-      token: json['token'],
+      token: json['token']??'',
+    );
+  }
+}
+
+class AuthResponseRegister {
+  final bool flag;
+  final String message;
+
+  AuthResponseRegister({
+    required this.flag,
+    required this.message,
+  });
+
+  factory AuthResponseRegister.fromJson(Map<String, dynamic> json) {
+    return AuthResponseRegister(
+      flag: json['flag'] ?? false,
+      message: json['message'] ?? '',
     );
   }
 }

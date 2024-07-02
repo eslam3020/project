@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:foody_app2/consts.dart';
 import 'package:http/http.dart' as http;
 
 import 'models/models.dart';
@@ -36,7 +37,13 @@ class ApiService {
     );
 
     if (response.statusCode == 200) {
-      return fromJson(jsonDecode(response.body));
+      if(endpoint == 'Cart/AddToCart')
+        {
+          checkAddToCart = true;
+          return response.body as dynamic;
+        }
+      else
+        return fromJson(jsonDecode(response.body));
     } else {
       print(response.statusCode);
       throw Exception('Failed to post data');
@@ -66,8 +73,8 @@ class ApiService {
   }
 
   // Account endpoints
-  Future<AuthResponse> registerUser(RegisterRequest request) =>
-      _postRequest('Account/Registeration', request, AuthResponse.fromJson);
+  Future<AuthResponseRegister> registerUser(RegisterRequest request) =>
+      _postRequest('Account/Registeration', request, AuthResponseRegister.fromJson);
 
   Future<AuthResponse> loginUser(LoginRequest request) =>
       _postRequest('Account/login', request.toJson(), AuthResponse.fromJson);
@@ -167,7 +174,7 @@ class ApiService {
   Future<List<CartItem>> getCartItem(int id) =>
       _getListRequest('Cart/$id', CartItem.fromJson);
 
-  Future<dynamic> addCartItem(CartItem cartItem) =>
+  Future<String> addCartItem(CartItem cartItem) =>
       _postRequest('Cart/AddToCart', cartItem, CartItem.fromJson);
 
   Future<void> updateCartItem(int id, CartItem cartItem) =>
