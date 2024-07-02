@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:foody_app2/consts.dart';
-import 'package:foody_app2/models/models.dart';
 import 'package:foody_app2/screens/profile_screen.dart';
 import 'package:foody_app2/services.dart';
 import 'package:iconsax/iconsax.dart';
@@ -38,6 +37,8 @@ class _UserHomeState extends State<UserHome> {
             GestureDetector(
               onTap: () async {
                 products = await ApiService().getProducts();
+                deserts =[];
+                meals =[];
                 products.forEach((element) {
                   if (element.categoryId == 2) {
                     deserts.add(element);

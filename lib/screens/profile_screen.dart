@@ -52,8 +52,8 @@ class ProfileScreen extends StatelessWidget {
                 borderRadius: BorderRadius.circular(15),
               ),
               child: ListTile(
-                leading: Icon(Icons.phone, color: kPrimaryColor),
-                title: Text('Phone'),
+                leading: const Icon(Icons.phone, color: kPrimaryColor),
+                title: const Text('Phone'),
                 subtitle: Text(userData.phoneNumber),
               ),
             ),
@@ -61,10 +61,10 @@ class ProfileScreen extends StatelessWidget {
               flex: 1,
             ),
             ElevatedButton(
-              style: ButtonStyle(backgroundColor: WidgetStateProperty.all(Colors.red)),
+                style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(Colors.red)),
                 onPressed: () {
                   Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(builder: (context) => LoginScreen()),
+                      MaterialPageRoute(builder: (context) => const LoginScreen()),
                       ModalRoute.withName('/'));
                 },
                 child: const Text(

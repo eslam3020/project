@@ -233,12 +233,12 @@ class _AddProductScreenState extends State<AddProductScreen> {
                   style: TextStyle(fontSize: 16),
                 ),
               ),
-              SizedBox(height: 10.0,),
+              const SizedBox(height: 10.0,),
               ElevatedButton(
-                  style: ButtonStyle(backgroundColor: WidgetStateProperty.all(Colors.red)),
+                  style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(Colors.red)),
                   onPressed: () {
                     Navigator.of(context).pushAndRemoveUntil(
-                        MaterialPageRoute(builder: (context) => LoginScreen()),
+                        MaterialPageRoute(builder: (context) => const LoginScreen()),
                         ModalRoute.withName('/'));
                   },
                   child: const Text(

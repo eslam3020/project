@@ -167,8 +167,8 @@ class ApiService {
   Future<List<CartItem>> getCartItem(int id) =>
       _getListRequest('Cart/$id', CartItem.fromJson);
 
-  Future<bool> addCartItem(CartItem cartItem) =>
-      _postRequest('Cart', cartItem, CartItem.fromJson);
+  Future<dynamic> addCartItem(CartItem cartItem) =>
+      _postRequest('Cart/AddToCart', cartItem, CartItem.fromJson);
 
   Future<void> updateCartItem(int id, CartItem cartItem) =>
       _putRequest('Cart/$id', cartItem);
