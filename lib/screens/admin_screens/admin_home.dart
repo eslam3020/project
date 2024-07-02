@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 
 import 'package:iconsax/iconsax.dart';
 
+import '../../consts.dart';
+import '../../services.dart';
 import '../home_screen.dart';
 import 'add_product_screen.dart';
 
@@ -36,9 +38,38 @@ class _AdminHomeState extends State<AdminHome> {
           children: [
             Spacer(flex: 1,),
             GestureDetector(
-              onTap: () => setState(() {
-                currentTab = 0;
-              }),
+              onTap: () async {
+                products = await ApiService().getProducts();
+                deserts =[];
+                meals =[];
+                mashweyat=[];
+                salad=[];
+                tawagen=[];
+
+                products.forEach((element) {
+                  if (element.categoryId == 2) {
+                    deserts.add(element);
+                  }
+                  if (element.categoryId == 3) {
+                    meals.add(element);
+                  }
+                  if(element.categoryId==4)
+                  {
+                    mashweyat.add(element);
+                  }
+                  if(element.categoryId==5)
+                  {
+                    tawagen.add(element);
+                  }
+                  if(element.categoryId==6)
+                  {
+                    salad.add(element);
+                  }
+                });
+                setState(() {
+                  currentTab = 0;
+                });
+              },
               child: Column(
                 children: [
                   Icon(

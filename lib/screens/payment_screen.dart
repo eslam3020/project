@@ -1,5 +1,7 @@
 
 import 'package:flutter/material.dart';
+import 'package:foody_app2/screens/user_home.dart';
+import 'package:foody_app2/services.dart';
 
 import '../consts.dart';
 
@@ -131,6 +133,12 @@ class PaymentScreen extends StatelessWidget {
                     ),
                   ),
                   onPressed: () {
+                    cartItem.forEach((element) async{
+                      await ApiService().deleteCartItem(element.cartId);
+                    }
+                    );
+                    cartItem=[];
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context )=>const UserHome()));
                     // Implement payment functionality here
                   },
                   child: const Text(

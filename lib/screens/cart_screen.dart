@@ -8,7 +8,7 @@ import '../models/food_model.dart';
 
 double calculateTotalPrice() {
   double totalPrice = 0.0;
-  for(int i=0;i<cartItem.length;i++){
+  for (int i = 0; i < cartItem.length; i++) {
     totalPrice += cartItem[i].price * cartItem[i].quantity;
   }
   return totalPrice;
@@ -97,16 +97,19 @@ class _CartScreenState extends State<CartScreen> {
               ElevatedButton(
                 onPressed: () {
                   // Implement your checkout functionality here
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>const PaymentScreen()));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const PaymentScreen()));
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: kPrimaryColor,
-                 // primary: Colors.blue, // Replace with your kPrimaryColor
-                //  onPrimary: Colors.white,
+                  // primary: Colors.blue, // Replace with your kPrimaryColor
+                  //  onPrimary: Colors.white,
                 ),
                 child: const Text(
                   'Checkout',
-                  style: TextStyle(fontSize: 20,color: Colors.white),
+                  style: TextStyle(fontSize: 20, color: Colors.white),
                 ),
               ),
             ],
@@ -142,7 +145,8 @@ class _CartScreenState extends State<CartScreen> {
                 children: [
                   Text(
                     model.productName,
-                    style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    style: const TextStyle(
+                        fontSize: 20, fontWeight: FontWeight.bold),
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                   ),
@@ -190,21 +194,24 @@ class _CartScreenState extends State<CartScreen> {
                         children: [
                           Text(
                             '\$${model.price.toStringAsFixed(2)}',
-                            style: const TextStyle(fontSize: 15, color: kPrimaryColor),
+                            style: const TextStyle(
+                                fontSize: 15, color: kPrimaryColor),
                           ),
                           // Add other text widgets for old price and discount if needed
                         ],
                       ),
                       const Spacer(),
                       IconButton(
-
-                        onPressed: () async{
+                        onPressed: () async {
                           await ApiService().deleteCartItem(model.cartId);
-                          cartItem = await ApiService().getCartItem(int.parse(userId));
-                          setState((){
+
+                          setState(() {
+                            cartItem.remove(model);
                           });
+                          updateTotalPrice();
                         },
-                        icon: const Icon(Icons.shopping_cart, color: kPrimaryColor),
+                        icon: const Icon(Icons.shopping_cart,
+                            color: kPrimaryColor),
                       ),
                     ],
                   ),
@@ -217,4 +224,3 @@ class _CartScreenState extends State<CartScreen> {
     );
   }
 }
-

@@ -19,6 +19,18 @@ void main() async{
     {
       meals.add(element);
     }
+    if(element.categoryId==4)
+    {
+      mashweyat.add(element);
+    }
+    if(element.categoryId==5)
+    {
+      tawagen.add(element);
+    }
+    if(element.categoryId==6)
+    {
+      salad.add(element);
+    }
   });
 
   runApp(const MyApp());

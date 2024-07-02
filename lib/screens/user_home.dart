@@ -39,12 +39,28 @@ class _UserHomeState extends State<UserHome> {
                 products = await ApiService().getProducts();
                 deserts =[];
                 meals =[];
+                mashweyat=[];
+                salad=[];
+                tawagen=[];
+
                 products.forEach((element) {
                   if (element.categoryId == 2) {
                     deserts.add(element);
                   }
                   if (element.categoryId == 3) {
                     meals.add(element);
+                  }
+                  if(element.categoryId==4)
+                  {
+                    mashweyat.add(element);
+                  }
+                  if(element.categoryId==5)
+                  {
+                    tawagen.add(element);
+                  }
+                  if(element.categoryId==6)
+                  {
+                    salad.add(element);
                   }
                 });
                 setState(() {
