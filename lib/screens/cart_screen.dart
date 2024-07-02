@@ -200,8 +200,8 @@ class _CartScreenState extends State<CartScreen> {
 
                         onPressed: () async{
                           await ApiService().deleteCartItem(model.cartId);
-                          setState(() async{
-                            cartItem = await ApiService().getCartItem(int.parse(userId));
+                          cartItem = await ApiService().getCartItem(int.parse(userId));
+                          setState((){
                           });
                         },
                         icon: const Icon(Icons.shopping_cart, color: kPrimaryColor),
